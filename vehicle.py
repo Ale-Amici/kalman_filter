@@ -12,4 +12,5 @@ class Vehicle:
 
     def run(self):
         for time_step in range(self.n_timestep):
-            self.model.update_state()
+            true_position = self.model.update_state()
+            sensed_position = self.location_sensor.get_measurement(true_position)

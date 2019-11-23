@@ -19,17 +19,19 @@ class Model:
         self.update_state()
         self.time_step = 0
 
-
+    def _store_state(self):
+        if self.position_history is None:
+            self.position_history = np.array([[self.x, self.y]])
+        else:
+            self.position_history = np.concatenate((self.position_history, np.array([[self.x, self.y]])), axis=0)
 
     def update_state(self):
         self.update_current_angle()
         self.x, self.y = self.get_true_position()
         self.x_dot, self.y_dot = self.get_true_velocity()
         self.time_step += 1
-        if self.position_history is None:
-            self.position_history = np.array([[self.x, self.y]])
-        else:
-            self.position_history = np.concatenate((self.position_history, np.array([[self.x, self.y]])), axis=0)
+        self._store_state()
+        return self.position_history[-1]
 
     def update_current_angle(self):
         self.current_angle = math.radians(self.time_step * self.angular_velocity)
