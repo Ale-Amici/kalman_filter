@@ -8,7 +8,7 @@ class Vehicle:
         self.location_sensor = LocationSensor()
         #self.odometry_sensor = OdometrySensor()
 
-        self.n_timestep = 90
+        self.n_timestep = 45
 
     def run(self):
         for time_step in range(self.n_timestep):
